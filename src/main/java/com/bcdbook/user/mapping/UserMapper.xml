@@ -41,11 +41,11 @@
 	</delete>
 	<insert id="insert" parameterType="com.bcdbook.user.pojo.User">
 		insert into t_user (id,
-		user_name, password,
+		user_name, pwd,
 		age)
 		values (#{id,jdbcType=INTEGER},
 		#{userName,jdbcType=VARCHAR},
-		#{password,jdbcType=VARCHAR},
+		#{pwd,jdbcType=VARCHAR},
 		#{age,jdbcType=INTEGER})
 	</insert>
 	<insert id="insertSelective" parameterType="com.bcdbook.user.pojo.User">
@@ -57,8 +57,8 @@
 			<if test="userName != null">
 				user_name,
 			</if>
-			<if test="password != null">
-				password,
+			<if test="pwd != null">
+				pwd,
 			</if>
 			<if test="age != null">
 				age,
@@ -71,8 +71,8 @@
 			<if test="userName != null">
 				#{userName,jdbcType=VARCHAR},
 			</if>
-			<if test="password != null">
-				#{password,jdbcType=VARCHAR},
+			<if test="pwd != null">
+				#{pwd,jdbcType=VARCHAR},
 			</if>
 			<if test="age != null">
 				#{age,jdbcType=INTEGER},
@@ -85,8 +85,8 @@
 			<if test="userName != null">
 				user_name = #{userName,jdbcType=VARCHAR},
 			</if>
-			<if test="password != null">
-				password = #{password,jdbcType=VARCHAR},
+			<if test="pwd != null">
+				pwd = #{pwd,jdbcType=VARCHAR},
 			</if>
 			<if test="age != null">
 				age = #{age,jdbcType=INTEGER},
@@ -98,8 +98,7 @@
 		update t_user
 		set
 		user_name = #{userName,jdbcType=VARCHAR},
-		password =
-		#{password,jdbcType=VARCHAR},
+		pwd = #{pwd,jdbcType=VARCHAR},
 		age = #{age,jdbcType=INTEGER}
 		where id =
 		#{id,jdbcType=INTEGER}

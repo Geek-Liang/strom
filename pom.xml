@@ -179,6 +179,12 @@
 		    <artifactId>dom4j</artifactId>
 		    <version>1.6.1</version>
 		</dependency>
+	<!-- xml封装和解析的扩展包,用于实体类和xml格式的字符串互相转换的处理 -->
+		<dependency>
+		    <groupId>com.thoughtworks.xstream</groupId>
+		    <artifactId>xstream</artifactId>
+		    <version>1.4.7</version>
+		</dependency>
 		<!-- <dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>

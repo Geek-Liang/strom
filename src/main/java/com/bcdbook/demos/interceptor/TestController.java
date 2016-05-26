@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +20,7 @@ import com.bcdbook.user.pojo.User;
 public class TestController {
 	@RequestMapping("/test")
 	public String getUser(HttpServletRequest request,Model model){
+		
 		return "test/test";
 	}
 	
@@ -68,7 +68,7 @@ public class TestController {
 		user.setSex(0);
 //		JSONObject jo = JSONObject.
 		String jsonUser = JSON.toJSONString(user);
-		JSONObject jo = JSONObject.parseObject(jsonUser);
+		JSONObject jo = JSON.parseObject(jsonUser);
 		System.out.println(jo.getString("userName"));
 //		System.out.println(jsonUser);
 		return jsonUser;

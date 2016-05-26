@@ -30,6 +30,11 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
+		
+		
+		//拦截器中,可以直接获取request中的值
+//		System.out.println(request.getParameter("type"));
+		
 //		System.out.println("进入拦截器preHandle");
 //		request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
 //		return false;

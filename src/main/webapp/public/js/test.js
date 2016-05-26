@@ -22,6 +22,30 @@ function ajaxData() {
 		}
 	});
 }
+function testWechat() {
+	 console.log('进入wechat的test方法');
+	// console.log(ctx);
+	$.ajax({
+		url : ctx + '/wechat',
+		type : 'POST',
+		data : {
+		// user_id: user_id,
+		// role_id: role_id
+		},
+		async : false,
+		// - cache: false,
+		// - contentType: false,
+		// - processData: false,
+		success : function(data) {
+			console.log(data);
+			// console.log(data.data);
+			// cb(data);
+		},
+		error : function() {
+			console.log('用户删除角色出错');
+		}
+	});
+}
 
 function ajaxUploadFile() {
 //	console.log(ctx + '/upload/ajaxUpload');

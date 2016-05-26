@@ -1,10 +1,7 @@
 package com.bcdbook.demos.json;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bcdbook.user.pojo.User;
@@ -39,7 +36,7 @@ public class Json {
 	 */
 	public static String text2JsonObject(){
 		String userText = bean2JsonText();
-		JSONObject jo = JSONObject.parseObject(userText);
+		JSONObject jo = JSON.parseObject(userText);
 		String userName = jo.getString("userName");
 //		JSON.to
 		return userName;

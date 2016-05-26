@@ -1,5 +1,8 @@
 package com.bcdbook.test.user;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
@@ -34,5 +37,16 @@ public class TestUser {
 		// System.out.println(user.getUserName());
 		// logger.info("值："+user.getUserName());
 		logger.info(JSON.toJSONString(user));
+	}
+	
+	@Test
+	public void testTransaction(){
+		List<User> users = new ArrayList<User>();
+		for (int i = 0; i < 5; i++) {
+			User user = new User();
+			user.setUserName("user"+i);
+			users.add(user);
+		}
+		userService.addUsers(users);
 	}
 }
