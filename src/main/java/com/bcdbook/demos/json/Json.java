@@ -72,7 +72,7 @@ public class Json {
 		User user = new User();
 		user.setUserName("admin");
 		user.setAge(23);
-		user.setSex(0);
+		user.setGender(0);
 		return user;
 	}
 	

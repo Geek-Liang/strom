@@ -13,6 +13,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bcdbook.wechat.service.ConnectService;
 import com.bcdbook.wechat.service.CoreService;
+import com.bcdbook.wechat.service.EncapsulationService;
+import com.bcdbook.wechat.service.EventService;
+import com.bcdbook.wechat.service.MessageService;
 
 //import com.bcdbook.wechat.service.impl.ConnectService;
 
@@ -25,6 +28,12 @@ public class TestWechat {
 	private ConnectService connectService = null;
 	@Resource
 	private CoreService coreService = null;
+	@Resource
+	private MessageService messageService = null;
+	@Resource
+	private EventService eventService = null;
+	@Resource
+	private EncapsulationService encapsulationService = null;
 	@Test
 	public void testGetAccessToken(){
 		System.out.println(connectService.getAccessToken());
@@ -54,7 +63,7 @@ public class TestWechat {
 		reqMsg.put("MsgId", "6288515584202222661");
 		String respContent = "测试";
 		
-		String respXML = coreService.encapsulationTextMsg(reqMsg, respContent);
+		String respXML = encapsulationService.encapsulationTextMsg(reqMsg, respContent);
 		System.out.println(respXML);
 	}
 }

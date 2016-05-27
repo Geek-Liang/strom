@@ -134,11 +134,33 @@ public class ConnectServiceImpl implements ConnectService {
 	
 	@Override
 	public String getCode() {
-		System.out.println("进入获取codeUrl的方法");
+		//微信公众号的app_id
+		String APP_ID = Wechat.APP_ID.getValue();
 		//定义回调的连接地址
 		String REDIRECT_URI = "https://strom.bcdbook.com/wechat/login";
+		//snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息
+		String SCOPE = "snsapi_userinfo";
+		//自己传过去的参数
+		String STATE = "shouquan";
+//		https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect
+//		https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&STATE=state#wechat_redirect";
+//		https://open.weixin.qq.com/connect/oauth2/authorize?appid=&redirect_uri=https%3A%2F%2Fstrom.bcdbook.com%2Fwechat%2Flogin&response_type=code&scope=snsapi_userinfo&shouquan=shouquan#wechat_redirect
 		//定义获取code的url地址
-		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+Wechat.APP_ID.getValue()+"&redirect_uri="+REDIRECT_URI+"&response_type=code&scope=snsapi_userinfo&state=shouquan#wechat_redirect";
+		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?"
+				+ "appid=APP_ID&"
+				+ "redirect_uri=REDIRECT_URI&"
+				+ "response_type=code&"
+				+ "scope=SCOPE&"
+				+ "state=STATE#wechat_redirect";
+		url = url.replace("APP_ID", WechatUtil.urlEnodeUTF8(APP_ID));
+		url = url.replace("REDIRECT_URI", WechatUtil.urlEnodeUTF8(REDIRECT_URI));
+		url = url.replace("SCOPE", WechatUtil.urlEnodeUTF8(SCOPE));
+		url = url.replace("STATE", WechatUtil.urlEnodeUTF8(STATE));
+		
+		System.out.println(url);
 		return url;
 	}
+//	public static void main(String[] args) {
+//		System.out.println(WechatUtil.urlEnodeUTF8("https://strom.bcdbook.com/wechat/login"));
+//	}
 }

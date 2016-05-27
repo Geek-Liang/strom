@@ -37,6 +37,13 @@ public interface ConnectService {
 	 * @return
 	 */
 	public Boolean createMenu();
-	
+
+	/**
+	 * 
+	 * @Discription 用户验证时用于获取code
+	 * @author lason
+	 * @created 2016年5月27日 上午10:33:15
+	 * @return
+	 */
 	public String getCode();
 }

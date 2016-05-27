@@ -94,8 +94,8 @@ public class Wechat {
     @RequestMapping(value="/login", method = {RequestMethod.GET}) 
 	public String getLoginPage(HttpServletRequest request, HttpServletResponse response){
     	System.out.println("进入登录页面");
-    	String code = request.getParameter("CODE");
-    	String state = request.getParameter("STATE");
+    	String code = request.getParameter("code");
+    	String state = request.getParameter("code");
     	System.out.println("code:"+code);
     	System.out.println("state:"+state);
 		return "login";

@@ -5,7 +5,7 @@ public class User {
 	private String userName;// 用户名
 	private String pwd;// 密码
 	private int age;// 年龄
-	private int sex;
+	private int gender;//性别
 	private String phone;// 电话
 	private String email;// 邮箱
 	private String openId;// 用于微信绑定的openid
@@ -24,8 +24,8 @@ public class User {
 	public User() {
 		super();
 	}
-	
-	public User(int id, String userName, String pwd, int age, int sex,
+	//全参构造
+	public User(int id, String userName, String pwd, int age, int gender,
 			String phone, String email, String openId, String addr,
 			int company, int department, int position, int userType,
 			int isLock, String addTime, String updateTime, String remark) {
@@ -34,7 +34,7 @@ public class User {
 		this.userName = userName;
 		this.pwd = pwd;
 		this.age = age;
-		this.sex = sex;
+		this.gender = gender;
 		this.phone = phone;
 		this.email = email;
 		this.openId = openId;
@@ -48,152 +48,107 @@ public class User {
 		this.updateTime = updateTime;
 		this.remark = remark;
 	}
-
-
+	
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
 	public String getUserName() {
 		return userName;
 	}
-
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
 	public String getPwd() {
 		return pwd;
 	}
-
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
-
 	public int getAge() {
 		return age;
 	}
-
 	public void setAge(int age) {
 		this.age = age;
 	}
-	
-	public int getSex() {
-		return sex;
+	public int getGender() {
+		return gender;
 	}
-
-	public void setSex(int sex) {
-		this.sex = sex;
+	public void setGender(int gender) {
+		this.gender = gender;
 	}
-
 	public String getPhone() {
 		return phone;
 	}
-
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public String getOpenId() {
 		return openId;
 	}
-
 	public void setOpenId(String openId) {
 		this.openId = openId;
 	}
-
 	public String getAddr() {
 		return addr;
 	}
-
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-
 	public int getCompany() {
 		return company;
 	}
-
 	public void setCompany(int company) {
 		this.company = company;
 	}
-
 	public int getDepartment() {
 		return department;
 	}
-
 	public void setDepartment(int department) {
 		this.department = department;
 	}
-
 	public int getPosition() {
 		return position;
 	}
-
 	public void setPosition(int position) {
 		this.position = position;
 	}
-
 	public int getUserType() {
 		return userType;
 	}
-
 	public void setUserType(int userType) {
 		this.userType = userType;
 	}
-
 	public int getIsLock() {
 		return isLock;
 	}
-
 	public void setIsLock(int isLock) {
 		this.isLock = isLock;
 	}
-
 	public String getAddTime() {
 		return addTime;
 	}
-
 	public void setAddTime(String addTime) {
 		this.addTime = addTime;
 	}
-
 	public String getUpdateTime() {
 		return updateTime;
 	}
-
 	public void setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
 	}
-
 	public String getRemark() {
 		return remark;
 	}
-
 	public void setRemark(String remark) {
 		this.remark = remark;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", userName=" + userName + ", pwd=" + pwd
-				+ ", age=" + age + ", phone=" + phone + ", email=" + email
-				+ ", openId=" + openId + ", addr=" + addr + ", company="
-				+ company + ", department=" + department + ", position="
-				+ position + ", userType=" + userType + ", isLock=" + isLock
-				+ ", addTime=" + addTime + ", updateTime=" + updateTime
-				+ ", remark=" + remark + "]";
 	}
 }

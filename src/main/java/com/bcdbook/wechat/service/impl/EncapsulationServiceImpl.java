@@ -1,0 +1,114 @@
+package com.bcdbook.wechat.service.impl;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+import com.bcdbook.enums.WechatEnum.MsgType;
+import com.bcdbook.wechat.pojo.resp.Article;
+import com.bcdbook.wechat.pojo.resp.Image;
+import com.bcdbook.wechat.pojo.resp.Music;
+import com.bcdbook.wechat.pojo.resp.TextMessage;
+import com.bcdbook.wechat.pojo.resp.Video;
+import com.bcdbook.wechat.pojo.resp.Voice;
+import com.bcdbook.wechat.service.EncapsulationService;
+import com.bcdbook.wechat.util.WechatUtil;
+
+/**
+ * 
+ * @Title: EncapsulationServiceImpl.java
+ * @Description: 封装消息的方法
+ * @author lason
+ * @created 2016年5月27日 上午10:42:00
+ */
+@Service("encapsulationService")
+public class EncapsulationServiceImpl implements EncapsulationService {
+
+	/**
+	 * 
+	 * @Discription 封装成文本消息
+	 * @author lason
+	 * @created 2016年5月27日 上午10:42:21
+	 * @param reqMsg
+	 * @param respContent
+	 * @return
+	 * @see com.bcdbook.wechat.service.EncapsulationService#encapsulationTextMsg(java.util.Map,
+	 *      java.lang.String)
+	 */
+	@Override
+	public String encapsulationTextMsg(Map<String, String> reqMsg,
+			String respContent) {
+		String encapsulationXML = null;
+
+		TextMessage textMessage = new TextMessage();
+
+		// 发送方帐号（open_id）
+		String fromUserName = reqMsg.get("FromUserName");
+		// 公众帐号
+		String toUserName = reqMsg.get("ToUserName");
+		// 消息类型
+		String msgType = MsgType.RESP_MESSAGE_TYPE_TEXT.getValue();
+
+		textMessage.setToUserName(fromUserName);// 设置接收者(客户端用户)
+		textMessage.setFromUserName(toUserName);// 设置发送者(微信公众平台)
+		textMessage.setCreateTime(new Date().getTime());// long类型的时间戳
+		textMessage.setMsgType(msgType);// 数据类型
+		textMessage.setFuncFlag(0);// 标记成未读
+		textMessage.setContent(respContent);// 要回复的消息
+
+		encapsulationXML = WechatUtil.textMessageToXml(textMessage);
+		return encapsulationXML;
+	}
+	
+	@Override
+	public String encapsulationWellcomeMsg(Map<String, String> reqMsg) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public String encapsulationUnknowableMsg(Map<String, String> reqMsg) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String encapsulationDefaultMsg(Map<String, String> reqMsg) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String encapsulationHelpMsg(Map<String, String> reqMsg) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public String encapsulationImageMsg(Map<String, String> reqMsg, Image image) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String encapsulationVoiceMsg(Map<String, String> reqMsg, Voice voice) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String encapsulationVideoMsg(Map<String, String> reqMsg, Video video) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String encapsulationMusicMsg(Map<String, String> reqMsg, Music music) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String encapsulationArticlesMsg(Map<String, String> reqMsg,
+			List<Article> articles) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

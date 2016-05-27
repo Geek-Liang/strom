@@ -40,14 +40,14 @@
                 "name": "测试",
                 "sub_button": [
                     {
-                        "name": "发送位置",
-                        "type": "location_select",
-                        "key": "rselfmenu_2_0"
+                        "name": "点击授权",
+                        "type": "click",
+                        "key": "getcode"
                     },
                     {
-                        "name": "个人中心",
-                        "type": "click",
-                        "key": "V1001_GOOD"
+                        "name": "连接",
+                        "type": "view",
+                        "url": "http://strom.bcdbook.com/wechat/getCode"
                     }
                 ]
             }

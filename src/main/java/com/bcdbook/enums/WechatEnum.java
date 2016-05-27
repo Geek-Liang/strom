@@ -29,7 +29,7 @@ public class WechatEnum {
 		/**
 		 * 绿能宝微信公众号的配置
 		 */
-		ACCESS_TOKEN("oWbR9YWVdIV8J0JjrBIWNGSglg0mwKWQRllGHoglV5fm8OTap6Q7u3nvdLs1QMeGxgps8qKKk2mhywuKTS4wIrxsa6qSbM1DrDCNgdGxfjuW4N4y6L0NdlUBRYvCb1gaNDNfAJADTD","生成的密钥"),
+		ACCESS_TOKEN("Rigo4Ep4xICV0wtgLYULz2GDzIljiXkql3nz3gt3mkaR9TaULoya3orDDCq5ypi-rW11dyzJQsl8e3nr45PDoV4G-QqzzyqRPT898G3VRJmnELz2vbil-YcuayNjj2yKHMGhABASXR","生成的密钥"),
 		APP_ID("wx18d7b3cb67983626","应用ID"),
 		APP_SECRET("bd8194a6707b334583b363a8318b59f0","应用密钥"),
 		URL("http://strom.bcdbook.com/wechat","连接地址"),

@@ -65,7 +65,7 @@ public class TestController {
 		User user = new User();
 		user.setUserName("admin");
 		user.setAge(2);
-		user.setSex(0);
+		user.setGender(0);
 //		JSONObject jo = JSONObject.
 		String jsonUser = JSON.toJSONString(user);
 		JSONObject jo = JSON.parseObject(jsonUser);
