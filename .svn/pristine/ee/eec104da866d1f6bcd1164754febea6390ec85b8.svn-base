@@ -1,0 +1,92 @@
+package com.bcdbook.wechat.service.impl;
+
+import java.io.IOException;
+import java.util.Date;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.dom4j.DocumentException;
+import org.springframework.stereotype.Service;
+
+import com.bcdbook.enums.WechatEnum.MsgType;
+import com.bcdbook.wechat.pojo.resp.TextMessage;
+import com.bcdbook.wechat.service.CoreService;
+import com.bcdbook.wechat.service.EventService;
+import com.bcdbook.wechat.service.MessageService;
+import com.bcdbook.wechat.util.WechatUtil;
+
+/**
+ * 
+ * @Title: CoreService.java
+ * @Description: 处理微信消息的核心业务类
+ * @author lason
+ * @created 2016年5月24日 下午10:11:28
+ */
+@Service("coreService")
+public class CoreServiceImpl implements CoreService {
+	@Resource
+	private MessageService messageService;
+	@Resource
+	private EventService eventService;
+
+	/**
+	 * 
+	 * @Discription 解析客户发送过来的消息
+	 * @author lason
+	 * @created 2016年5月24日 下午10:12:24
+	 * @param request
+	 * @return
+	 */
+	@Override
+	public String processRequest(HttpServletRequest request) {
+		String respMsg = null;
+		Map<String, String> msg = null;// 定义一个map对象,用来存放解析后的消息
+		try {
+			// 通过解析的工具类,解析用户发送的消息,得到解析后的map对象
+			msg = WechatUtil.parseXml(request);
+
+			String msgType = msg.get("MsgType");// 获取消息的类型
+			// System.out.println("数据类型:"+msg.get("MsgType"));
+			// System.out.println("数据值:"+msg.get("Content"));
+
+			//根据不同的消息类型,选用不同的处理器进行处理
+			switch (msgType) {
+			case "text":
+				respMsg = messageService.processTextMsg(msg);
+				break;
+			case "image":
+				respMsg = messageService.processImageMsg(msg);
+				break;
+			case "voice":
+				respMsg = messageService.processVoiceMsg(msg);
+				break;
+			case "video":
+				respMsg = messageService.processVideoMsg(msg);
+				break;
+			case "shortvideo":
+				respMsg = messageService.processShortvideoMsg(msg);
+				break;
+			case "location":
+				respMsg = messageService.processLocationMsg(msg);
+				break;
+			case "link":
+				respMsg = messageService.processLinkMsg(msg);
+				break;
+			case "event":
+				respMsg = eventService.processEvent(msg);
+				break;
+			default:
+				respMsg = messageService.processUnknowMsg(msg);
+				break;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+		//返回封装好的,要发给用户的消息(xml格式的字符串)
+		return respMsg;
+	}
+}
