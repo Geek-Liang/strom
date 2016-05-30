@@ -2,6 +2,8 @@ package com.bcdbook.wechat.service;
 
 import java.util.Map;
 
+import com.bcdbook.wechat.pojo.Message;
+
 /**
  * 
  * @Title: MessageService.java
@@ -90,4 +92,44 @@ public interface MessageService {
 	 * @return
 	 */
 	public String processUnknowMsg(Map<String, String> msg);
+
+	/**
+	 * 
+	 * @Discription 添加消息的方法
+	 * @author lason
+	 * @created 2016年5月30日 下午10:09:59
+	 * @param message
+	 * @return
+	 */
+	public String addMsg(Message message);
+
+	/**
+	 * 
+	 * @Discription 更新消息的方法
+	 * @author lason
+	 * @created 2016年5月30日 下午10:11:32
+	 * @param message
+	 * @return
+	 */
+	public String updateMsg(Message message);
+
+	/**
+	 * 
+	 * @Discription 根据传入的名字,查询有无对应的信息
+	 * @author lason
+	 * @created 2016年5月30日 下午10:13:49
+	 * @param msgName
+	 * @return
+	 */
+	public boolean hasMsgByName(String msgName);
+
+	/**
+	 * 
+	 * @Discription 根据关键字,查询有无对应的信息
+	 * @author lason
+	 * @created 2016年5月30日 下午10:14:55
+	 * @param keyword
+	 * @return
+	 */
+	public boolean hasMsgByKeyword(String keyword);
 }

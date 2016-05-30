@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 设置映射的dao类 -->
+<mapper namespace="com.bcdbook.wechat.dao.WechatDao">
+	<!-- 设置映射的数据模型 -->
+	<resultMap id="BaseResultMap" type="com.bcdbook.wechat.pojo.Wechat">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="access_token" property="access_token" jdbcType="VARCHAR" />
+		<result column="refresh_token" property="refresh_token" jdbcType="VARCHAR" />
+		<result column="add_time" property="add_time" jdbcType="VARCHAR" />
+		<result column="update_time" property="update_time" jdbcType="VARCHAR" />		
+	</resultMap>
+
+	<!-- 定义查询的所有参数 -->
+	<!-- 添加按照id获取，删除，和插入一条wechat记录的方法 -->
+	<sql id="Base_Column_List">
+		id, access_token, refresh_token,add_time,update_time
+	</sql>
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_wechat
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from t_wechat
+		where id
+		= #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.bcdbook.wechat.pojo.Wechat">
+		insert into t_wechat (id,
+		access_token, refresh_token,
+		add_time,update_time)
+		values (#{id,jdbcType=INTEGER},
+		#{access_token,jdbcType=VARCHAR},
+		#{refresh_token,jdbcType=VARCHAR},
+		#{add_time,jdbcType=VARCHAR},
+		#{update_time,jdbcType=VARCHAR})
+	</insert>
+	<!--  注释掉其他部分
+	<insert id="insertSelective" parameterType="com.bcdbook.user.pojo.User">
+		insert into t_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="pwd != null">
+				pwd,
+			</if>
+			<if test="age != null">
+				age,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="pwd != null">
+				#{pwd,jdbcType=VARCHAR},
+			</if>
+			<if test="age != null">
+				#{age,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bcdbook.user.pojo.User">
+		update t_user
+		<set>
+			<if test="userName != null">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="pwd != null">
+				pwd = #{pwd,jdbcType=VARCHAR},
+			</if>
+			<if test="age != null">
+				age = #{age,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bcdbook.user.pojo.User">
+		update t_user
+		set
+		user_name = #{userName,jdbcType=VARCHAR},
+		pwd = #{pwd,jdbcType=VARCHAR},
+		age = #{age,jdbcType=INTEGER}
+		where id =
+		#{id,jdbcType=INTEGER}
+	</update>
+	-->
+</mapper>

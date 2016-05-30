@@ -15,6 +15,7 @@ import com.bcdbook.wechat.service.ConnectService;
 import com.bcdbook.wechat.service.CoreService;
 import com.bcdbook.wechat.service.EncapsulationService;
 import com.bcdbook.wechat.service.EventService;
+import com.bcdbook.wechat.service.MaterialService;
 import com.bcdbook.wechat.service.MessageService;
 
 //import com.bcdbook.wechat.service.impl.ConnectService;
@@ -24,6 +25,7 @@ import com.bcdbook.wechat.service.MessageService;
 public class TestWechat {
 	
 	private static Logger logger = Logger.getLogger(TestWechat.class);
+	
 	@Resource
 	private ConnectService connectService = null;
 	@Resource
@@ -34,9 +36,12 @@ public class TestWechat {
 	private EventService eventService = null;
 	@Resource
 	private EncapsulationService encapsulationService = null;
+	@Resource
+	private MaterialService materialService = null;
+	
 	@Test
 	public void testGetAccessToken(){
-		System.out.println(connectService.getAccessToken());
+		System.out.println(connectService.makeAccessToken());
 	}
 	
 	@Test
@@ -66,4 +71,16 @@ public class TestWechat {
 		String respXML = encapsulationService.encapsulationTextMsg(reqMsg, respContent);
 		System.out.println(respXML);
 	}
+	
+	@Test
+	public void testMaterialService(){
+		materialService.listMaterial("voice");
+//		materialService.getMaterial("mErowUdivp53pbwYC5N7cXSMwyjbxQlCSalIexy9-5E");
+	}
+	
+	@Test
+	public void testAddAccessToken(){
+		connectService.addAccessToken();
+	}
+	
 }

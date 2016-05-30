@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.bcdbook.wechat.pojo.Message;
 import com.bcdbook.wechat.service.EncapsulationService;
 import com.bcdbook.wechat.service.MessageService;
 
@@ -119,4 +120,35 @@ public class MessageServiceImpl implements MessageService {
 		return null;
 	}
 
+	
+	//==============从此往下的方法需要立刻实现==============
+	/**
+	 * 
+	    * @Discription 添加微信回复的消息的方法
+	    * @author lason       
+	    * @created 2016年5月30日 下午10:16:34      
+	    * @param message
+	    * @return     
+	    * @see com.bcdbook.wechat.service.MessageService#addMsg(com.bcdbook.wechat.pojo.Message)
+	 */
+	@Override
+	public String addMsg(Message message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String updateMsg(Message message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public boolean hasMsgByName(String msgName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean hasMsgByKeyword(String keyword) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

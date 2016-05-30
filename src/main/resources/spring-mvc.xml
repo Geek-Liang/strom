@@ -68,8 +68,20 @@
     
    <!-- 定时器的相关配置 -->
 	<!-- 定义处理业务的类 -->
+	<bean id="WechatSettime" class="com.bcdbook.util.settime.WechatSettime" />
+	
 	<bean id="businessObject" class="com.bcdbook.demos.settime.ThisTimeTodo" />
 	<!-- 配置所执行的方法的细节 -->
+	<bean id="updateAccessToken" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 执行的类(映射) -->
+		<property name="targetObject" ref="WechatSettime" />
+		<!-- 执行的方法 -->
+		<property name="targetMethod" value="updateAccessToken" />
+		<!-- 实例化后是否立即执行 -->
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	
 	<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<!-- 执行的类(映射) -->
 		<property name="targetObject" ref="businessObject" />
@@ -91,19 +103,21 @@
 	<bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
 		<!-- see the example of method invoking job above -->
 		<!-- 映射执行的方法 -->
-		<property name="jobDetail" ref="jobDetail" />
+		<property name="jobDetail" ref="updateAccessToken" />
 		<!-- 10 seconds -->
-		<!-- 首次执行的时候推辞的时间 -->
+		<!-- 首次执行的时候推辞的时间(时间均已毫秒计算) -->
 		<!-- <property name="startDelay" value="5000" /> -->
-		<!-- repeat every 50 seconds -->
-		<property name="repeatInterval" value="3000" />
+		<!-- 每隔15分钟执行一次 -->
+		<property name="repeatInterval" value="900000" />
 	</bean>
+	
+	
 	<!-- 定义到时间点的配置 -->
 	<!-- <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
     	<property name="jobDetail" ref="jobDetail" />
     	<property name="cronExpression" value="0 31 09 * * ?" />每天12:00运行一次
     </bean> -->
-    <!-- 另一种触发器是CornTrigger -->
+    <!-- 另一种触发器是CornTrigger,每隔多久执行一次 -->
      <bean id="cornTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
        <property name="jobDetail" ref="jobDetail2"/>
        <!-- 每个10秒触发 -->
@@ -135,6 +149,7 @@
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
+				<ref bean="simpleTrigger" />
 			<!-- 
 				<ref bean="cornTrigger" />
 				<ref bean="simpleTrigger" />

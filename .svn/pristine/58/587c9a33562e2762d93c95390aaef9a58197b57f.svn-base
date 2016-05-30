@@ -1,0 +1,15 @@
+package com.bcdbook.wechat.dao;
+
+import com.bcdbook.wechat.pojo.Wechat;
+
+
+
+public interface WechatDao {
+	
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(Wechat wechat);
+    
+    Wechat selectById(Integer id);
+
+}

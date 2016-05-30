@@ -27,7 +27,34 @@ public interface ConnectService {
 	 * @created 2016年5月25日 下午12:40:00
 	 * @return
 	 */
+	public String makeAccessToken();
+	
+	/**
+	 * 
+	    * @Discription 添加accessToken到数据库(t_wechat表)
+	    * @author lason       
+	    * @created 2016年5月30日 上午9:34:35     
+	    * @return
+	 */
+	public String addAccessToken();
+	
+	/**
+	    * @Discription 更新accessToken到数据库(t_wechat表)
+	    * @author lason       
+	    * @created 2016年5月30日 上午9:35:04     
+	    * @return
+	 */
+	public String updateAccessToken(int id);
+	
+	/**
+	 * 
+	    * @Discription 从数据库中查询出最新的(时间最接近当前)accessToken数据
+	    * @author lason       
+	    * @created 2016年5月30日 上午9:35:40     
+	    * @return
+	 */
 	public String getAccessToken();
+	
 
 	/**
 	 * 

@@ -15,7 +15,7 @@ public class WechatEnum {
 	     * @author lason       
 	     * @created 2016年5月25日 下午12:29:50
 	 */
-	public enum Wechat{
+	public enum IWechatEnum{
 		/**
 		 * 个人微信公众号的配置
 		 */
@@ -29,7 +29,7 @@ public class WechatEnum {
 		/**
 		 * 绿能宝微信公众号的配置
 		 */
-		ACCESS_TOKEN("Rigo4Ep4xICV0wtgLYULz2GDzIljiXkql3nz3gt3mkaR9TaULoya3orDDCq5ypi-rW11dyzJQsl8e3nr45PDoV4G-QqzzyqRPT898G3VRJmnELz2vbil-YcuayNjj2yKHMGhABASXR","生成的密钥"),
+		ACCESS_TOKEN("qkriKF3JTXgn7_JU2iMAkieH3dS-Lf2BPa7V299oLYbG_xaBMYPIWuZHyVd_TTTNshaZxq4rWx2Kngl1OF2urnMhBHJAvGO1vlU22KVjdOx-YWCDTwQbPoOSdBvqzxS_VZOdAEABFU","生成的密钥"),
 		APP_ID("wx18d7b3cb67983626","应用ID"),
 		APP_SECRET("bd8194a6707b334583b363a8318b59f0","应用密钥"),
 		URL("http://strom.bcdbook.com/wechat","连接地址"),
@@ -39,7 +39,7 @@ public class WechatEnum {
 		private final String value;
 		private final String name;
 		//构造器默认也只能是private, 从而保证构造函数只能在内部使用
-		private Wechat(String value,String name) {
+		private IWechatEnum(String value,String name) {
             this.value = value;
             this.name = name;
         }
