@@ -72,11 +72,11 @@
 	
 	<bean id="businessObject" class="com.bcdbook.demos.settime.ThisTimeTodo" />
 	<!-- 配置所执行的方法的细节 -->
-	<bean id="updateAccessToken" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	<bean id="refreshAccessToken" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<!-- 执行的类(映射) -->
 		<property name="targetObject" ref="WechatSettime" />
 		<!-- 执行的方法 -->
-		<property name="targetMethod" value="updateAccessToken" />
+		<property name="targetMethod" value="refreshAccessToken" />
 		<!-- 实例化后是否立即执行 -->
 		<property name="concurrent" value="false" />
 	</bean>
@@ -103,12 +103,13 @@
 	<bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
 		<!-- see the example of method invoking job above -->
 		<!-- 映射执行的方法 -->
-		<property name="jobDetail" ref="updateAccessToken" />
+		<property name="jobDetail" ref="refreshAccessToken" />
 		<!-- 10 seconds -->
 		<!-- 首次执行的时候推辞的时间(时间均已毫秒计算) -->
 		<!-- <property name="startDelay" value="5000" /> -->
 		<!-- 每隔15分钟执行一次 -->
 		<property name="repeatInterval" value="900000" />
+		<!-- <property name="repeatInterval" value="3000" /> -->
 	</bean>
 	
 	

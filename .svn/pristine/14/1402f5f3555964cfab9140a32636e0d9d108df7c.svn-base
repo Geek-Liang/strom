@@ -1,0 +1,135 @@
+package com.bcdbook.wechat.service;
+
+import java.util.Map;
+
+import com.bcdbook.wechat.pojo.Message;
+
+/**
+ * 
+ * @Title: MessageService.java
+ * @Description: 处理用户发来的消息的service
+ * @author lason
+ * @created 2016年5月27日 上午10:37:01
+ */
+public interface MessageService {
+
+	/**
+	 * 
+	 * @Discription 处理文本消息的方法
+	 * @author lason
+	 * @created 2016年5月25日 下午1:23:25
+	 * @param msg
+	 * @return
+	 */
+	public String processTextMsg(Map<String, String> msg);
+
+	/**
+	 * 
+	 * @Discription 处理图片消息
+	 * @author lason
+	 * @created 2016年5月25日 下午1:27:04
+	 * @param msg
+	 * @return
+	 */
+	public String processImageMsg(Map<String, String> msg);
+
+	/**
+	 * 
+	 * @Discription 处理语音消息
+	 * @author lason
+	 * @created 2016年5月25日 下午1:27:16
+	 * @param msg
+	 * @return
+	 */
+	public String processVoiceMsg(Map<String, String> msg);
+
+	/**
+	 * 
+	 * @Discription 处理视频消息
+	 * @author lason
+	 * @created 2016年5月25日 下午1:27:38
+	 * @param msg
+	 * @return
+	 */
+	public String processVideoMsg(Map<String, String> msg);
+
+	/**
+	 * 
+	 * @Discription 处理短视频消息
+	 * @author lason
+	 * @created 2016年5月25日 下午1:27:47
+	 * @param msg
+	 * @return
+	 */
+	public String processShortvideoMsg(Map<String, String> msg);
+
+	/**
+	 * 
+	 * @Discription 处理地里位置消息
+	 * @author lason
+	 * @created 2016年5月25日 下午1:29:16
+	 * @param msg
+	 * @return
+	 */
+	public String processLocationMsg(Map<String, String> msg);
+
+	/**
+	 * 
+	 * @Discription 处理连接消息
+	 * @author lason
+	 * @created 2016年5月25日 下午1:28:01
+	 * @param msg
+	 * @return
+	 */
+	public String processLinkMsg(Map<String, String> msg);
+
+	/**
+	 * 
+	 * @Discription 处理不能识别类型的消息
+	 * @author lason
+	 * @created 2016年5月25日 下午1:30:26
+	 * @param msg
+	 * @return
+	 */
+	public String processUnknowMsg(Map<String, String> msg);
+
+	/**
+	 * 
+	 * @Discription 添加消息的方法
+	 * @author lason
+	 * @created 2016年5月30日 下午10:09:59
+	 * @param message
+	 * @return
+	 */
+	public String addMsg(Message message);
+
+	/**
+	 * 
+	 * @Discription 更新消息的方法
+	 * @author lason
+	 * @created 2016年5月30日 下午10:11:32
+	 * @param message
+	 * @return
+	 */
+	public String updateMsg(Message message);
+
+	/**
+	 * 
+	 * @Discription 根据传入的名字,查询有无对应的信息
+	 * @author lason
+	 * @created 2016年5月30日 下午10:13:49
+	 * @param msgName
+	 * @return
+	 */
+	public boolean hasMsgByName(String msgName);
+
+	/**
+	 * 
+	 * @Discription 根据关键字,查询有无对应的信息
+	 * @author lason
+	 * @created 2016年5月30日 下午10:14:55
+	 * @param keyword
+	 * @return
+	 */
+	public boolean hasMsgByKeyword(String keyword);
+}
