@@ -97,14 +97,6 @@ public class ConnectServiceImpl implements ConnectService {
 		}
 	}
 
-	/**
-	 * 
-	    * @Discription 通过调用微信端的接口,获取accessToken的方法
-	    * @author lason       
-	    * @created 2016年6月1日 下午1:33:42      
-	    * @return     
-	    * @see com.bcdbook.wechat.service.ConnectService#makeAccessToken()
-	 */
 	@Override
 	public String makeAccessToken() {
 		//定义请求的url
@@ -136,6 +128,7 @@ public class ConnectServiceImpl implements ConnectService {
 //	@Transactional
 	public String addAccessToken() {
 		/*
+		 * TODO
 		 * 1. 调用本类的makeAccessToken获取accessToken
 		 * 2. 调用connectDao.insert方法插入到数据库
 		 * 3. 数据插入成功后返回成功信息(BaseEnum类中的BackMsg的SUCCESS)
@@ -149,8 +142,8 @@ public class ConnectServiceImpl implements ConnectService {
 		 */
 		
 		Wechat wechat=new Wechat();
-		String accessToken = this.makeAccessToken();//--此处为正式上线时的写法，下方为测试写法
-//		String accessToken="asfdasdbhrie最新";
+//		String access_token = this.makeAccessToken();TODO--此处为正式上线时的写法，下方为测试写法
+		String accessToken="asfdasdbhrie最新";
 		Date addTime=new Date();
 		Date updateTime=new Date();
 		//<<===================以此为界,上方为创建或获取值的处理,下面为填充设置wechat对象的处理,所以此处应该加一行空格
@@ -178,6 +171,7 @@ public class ConnectServiceImpl implements ConnectService {
 	public String updateAccessToken(int id) {
 //		System.out.println("进入了service层的updateAccessToken");
 		/*
+		 * TODO
 		 * 1. 根据传入的id获取对应的wechat对象(调用WechatDao中的selectById)
 		 * 2. 检查updateTime字段的时间,与现在的时间相比是否大于90分钟
 		 * 		1. 如果大于90分钟,调用此类的makeAccessToken获取一个新的accessToken,并执行更新
@@ -212,6 +206,7 @@ public class ConnectServiceImpl implements ConnectService {
 					wechatDao.refreshToken(wechat);
 				}
 			} catch (ParseException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return BackMsg.SUCCESS.getValue();
@@ -243,6 +238,7 @@ public class ConnectServiceImpl implements ConnectService {
 		
 //		==================处理方式=====================
 		/*
+		 * TODO
 		 * 1. 调用WechatDao中的selectRecent方法,获取最新的wechat对象,或者直接获取accessToken值
 		 * 2. 直接返回查询出来的accessToken
 		 */
@@ -255,14 +251,7 @@ public class ConnectServiceImpl implements ConnectService {
 		return accessToken;
 	}
 	
-	/**
-	 * 
-	    * @Discription 创建菜单的方法
-	    * @author lason
-	    * @created 2016年6月1日 下午1:59:15
-	    * @return
-	    * @see com.bcdbook.wechat.service.ConnectService#createMenu()
-	 */
+	
 	@Override
 	public Boolean createMenu(){
 		WechatUtil wechatUtil = new WechatUtil();
@@ -271,6 +260,7 @@ public class ConnectServiceImpl implements ConnectService {
 		String menu = wechatUtil.getMenu();
 
         //此处改为自己想要的结构体，替换即可
+		//- TODO
         String accessToken = getAccessToken();
         String url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token="+accessToken;
         
@@ -279,7 +269,7 @@ public class ConnectServiceImpl implements ConnectService {
 			String backValue = WechatRequest.wechatPost(url, menu);
 			if(backValue!=null){
 				JSONObject backJson = JSON.parseObject(backValue);
-//				System.out.println(JSON.toJSONString(backJson));
+				System.out.println(JSON.toJSONString(backJson));
 				int errcode = backJson.getIntValue("errcode");
 				if(errcode==0){
 					createOk = true;
@@ -316,4 +306,7 @@ public class ConnectServiceImpl implements ConnectService {
 		System.out.println(url);
 		return url;
 	}
+//	public static void main(String[] args) {
+//		System.out.println(WechatUtil.urlEnodeUTF8("https://strom.bcdbook.com/wechat/login"));
+//	}
 }

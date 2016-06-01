@@ -155,8 +155,8 @@ public class ConnectServiceImpl implements ConnectService {
 		Date updateTime=new Date();
 		//<<===================以此为界,上方为创建或获取值的处理,下面为填充设置wechat对象的处理,所以此处应该加一行空格
 		wechat.setAccessToken(accessToken);
-		wechat.setAddTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSSS").format(addTime));
-		wechat.setUpdateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSSS").format(updateTime));
+		wechat.setAddTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(addTime));
+		wechat.setUpdateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(updateTime));
 		//<<===================以此为界,上方为填充设置wechat对象的处理,下面为输入插入的处理,所以此处应该加一行空格
 		wechatDao.insert(wechat);
 		
@@ -194,7 +194,7 @@ public class ConnectServiceImpl implements ConnectService {
 			//获取存入的时间
 			String uTime = wechat.getUpdateTime();
 //			System.out.println(uTime);
-			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSSS");
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			try {
 				//把更新时间转换成data类型
 				Date updateTime= sf.parse(uTime);
@@ -207,7 +207,7 @@ public class ConnectServiceImpl implements ConnectService {
 					String accessToken= this.makeAccessToken();
 					
 					wechat.setAccessToken(accessToken);
-					wechat.setUpdateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSSS").format(now));
+					wechat.setUpdateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(now));
 					
 					wechatDao.refreshToken(wechat);
 				}
