@@ -1,0 +1,23 @@
+package com.bcdbook.wechat.dao;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+import com.bcdbook.wechat.pojo.Message;
+
+
+@Repository(value = "wechatMsgDao")
+public interface WechatMsgDao {
+	// int deleteByPrimaryKey(Integer id);
+	
+ 	 int insert(Message message);
+ 	 
+	 int update(Message message);
+	//
+	 Message selectById(Integer id);
+	// Message selectByKeyword(String keyword);
+	// Message selectByName(String name);
+	//根据传入的条件查询到对应的Message对象
+	Message selectByCondition(@Param("keyword")String keyword,@Param("name")String name );
+	
+}
