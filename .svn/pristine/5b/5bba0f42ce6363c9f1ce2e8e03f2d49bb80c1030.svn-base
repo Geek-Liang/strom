@@ -134,18 +134,6 @@ public class WechatController {
     	return "refreshMaterial success";
     }
     
-    //TODO 获取添加页面的方法(get请求)
-    @RequestMapping(value="/addMsg", method = {RequestMethod.GET})
-    public String toAddMsg(HttpServletRequest request, HttpServletResponse response){
-    	return "wechat/addMsg";
-    }
-    //TODO 执行消息添加的方法(post请求)
-    @RequestMapping(value="/addMsg", method = {RequestMethod.POST})
-    public String addMsg(HttpServletRequest request, HttpServletResponse response){
-    	
-    	return "wechat/addMsg";
-    }
-    
     
     @RequestMapping("/getTest")
     public String getTest(HttpServletRequest request, HttpServletResponse response){

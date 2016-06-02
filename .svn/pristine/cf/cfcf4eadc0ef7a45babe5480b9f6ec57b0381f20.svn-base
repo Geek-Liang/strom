@@ -52,70 +52,68 @@ public class EncapsulationServiceImpl implements EncapsulationService {
 	 */
 	@Override
 	public String encapsulationMsg(Map<String, String> reqMsg, Message message) {
+		//根据传入message对象,获取到要返回的消息的类型
+		String msgType = message.getMsgType();
 		String encapsulationXML = null;
-		if(message!=null){
-			//根据传入message对象,获取到要返回的消息的类型
-			String msgType = message.getMsgType();
+		
+		switch (msgType) {
+		case "text":
+			//封装文本消息
+			//根据客户端发来的消息和要返回的文字,生成要返回的xml格式的消息
+			encapsulationXML = encapsulationTextMsg(reqMsg, message.getContent());
+			break;
 			
-			switch (msgType) {
-			case "text":
-				//封装文本消息
-				//根据客户端发来的消息和要返回的文字,生成要返回的xml格式的消息
-				encapsulationXML = encapsulationTextMsg(reqMsg, message.getContent());
-				break;
-				
-			case "image":
-				//封装图片消息
-				Image img = new Image();//创建image对象
-				img.setMediaId(message.getMediaId());//设置image的素材id
-				//根据客户端发来的消息和要返回img对象,生成要返回的xml格式的消息
-				encapsulationXML = encapsulationImageMsg(reqMsg, img);
-				break;
-				
-			case "voice":
-				//封装语音消息
-				//创建语音对象
-				Voice voice = new Voice();
-				voice.setMediaId(message.getMediaId());//设置语音对象的素材id
-				//根据客户端发来的消息和要返回的语音,生成要返回的xml格式的消息
-				encapsulationXML = encapsulationVoiceMsg(reqMsg, voice);
-				break;
-			case "video":
-				//封装视频消息
-				//创建视频对象
-				Video video = new Video();
-				video.setMediaId(message.getMediaId());//设置视频对象的素材id
-				video.setTitle(message.getTitle());//设置视频对象的title
-				video.setDescription(message.getDescription());//设置视频对象的备注
-				//根据客户端发来的消息和要返回的视频,生成要返回的xml格式的消息
-				encapsulationXML = encapsulationVideoMsg(reqMsg, video);
-				break;
-			case "music":
-				//封装音乐消息
-				//创建音乐对象
-				Music music = new Music();
-				music.setTitle(message.getTitle());//设置音乐对象的title
-				music.setDescription(message.getDescription());//设置音乐对象的备注
-				music.setMusicUrl(message.getMusicUrl());//设置音乐对象的素材地址
-				music.setHQMusicUrl(message.getHqMusicUrl());//设置音乐对象的高清素材地址
-				//根据客户端发来的消息和要返回的音乐,生成要返回的xml格式的消息
-				encapsulationXML = encapsulationMusicMsg(reqMsg, music);
-				break;
-			case "news":
-				//封装文图消息
-				//处理并从数据库中查询到的文图消息
-				List<Article> artList = parseNewsMsg(reqMsg,message);
-				
-				//根据客户端发来的消息和要返回的文图消息,生成要返回的xml格式的消息
-				encapsulationXML = encapsulationNewsMsg(reqMsg,artList);
-				break;
+		case "image":
+			//封装图片消息
+			Image img = new Image();//创建image对象
+			img.setMediaId(message.getMediaId());//设置image的素材id
+			//根据客户端发来的消息和要返回img对象,生成要返回的xml格式的消息
+			encapsulationXML = encapsulationImageMsg(reqMsg, img);
+			break;
 			
-			default:
-				//如果不能识别消息要返回的消息类型,则返回默认消息
-				//如果进入到这里说明要返回的消息类型是不能识别的,为了避免死循环,直接返回一条写死的消息
-				encapsulationXML = encapsulationDefaultMsg(reqMsg);
-				break;
-			}
+		case "voice":
+			//封装语音消息
+			//创建语音对象
+			Voice voice = new Voice();
+			voice.setMediaId(message.getMediaId());//设置语音对象的素材id
+			//根据客户端发来的消息和要返回的语音,生成要返回的xml格式的消息
+			encapsulationXML = encapsulationVoiceMsg(reqMsg, voice);
+			break;
+		case "video":
+			//封装视频消息
+			//创建视频对象
+			Video video = new Video();
+			video.setMediaId(message.getMediaId());//设置视频对象的素材id
+			video.setTitle(message.getTitle());//设置视频对象的title
+			video.setDescription(message.getDescription());//设置视频对象的备注
+			//根据客户端发来的消息和要返回的视频,生成要返回的xml格式的消息
+			encapsulationXML = encapsulationVideoMsg(reqMsg, video);
+			break;
+		case "music":
+			//封装音乐消息
+			//创建音乐对象
+			Music music = new Music();
+			music.setTitle(message.getTitle());//设置音乐对象的title
+			music.setDescription(message.getDescription());//设置音乐对象的备注
+			music.setMusicUrl(message.getMusicUrl());//设置音乐对象的素材地址
+			music.setHQMusicUrl(message.getHqMusicUrl());//设置音乐对象的高清素材地址
+			//根据客户端发来的消息和要返回的音乐,生成要返回的xml格式的消息
+			encapsulationXML = encapsulationMusicMsg(reqMsg, music);
+			break;
+		case "news":
+			//封装文图消息
+			//处理并从数据库中查询到的文图消息
+			List<Article> artList = parseNewsMsg(reqMsg,message);
+			
+			//根据客户端发来的消息和要返回的文图消息,生成要返回的xml格式的消息
+			encapsulationXML = encapsulationNewsMsg(reqMsg,artList);
+			break;
+		
+		default:
+			//如果不能识别消息要返回的消息类型,则返回默认消息
+			//如果进入到这里说明要返回的消息类型是不能识别的,为了避免死循环,直接返回一条写死的消息
+			encapsulationXML = encapsulationDefaultMsg(reqMsg);
+			break;
 		}
 		
 		//如果上述处理的最终结果使得返回值为空,则返回默认消息

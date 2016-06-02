@@ -1,8 +1,6 @@
 package com.bcdbook.wechat.service.impl;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -262,7 +260,6 @@ public class MaterialServiceImpl implements MaterialService {
 		}
 		return BackMsg.SUCCESS.getValue();
 	}
-	
 	@Override
 	public String refreshImageMaterialToLocal(int materialCount) {
 		int pace = 20;
@@ -302,77 +299,10 @@ public class MaterialServiceImpl implements MaterialService {
 		}
 		return BackMsg.SUCCESS.getValue();
 	}
-	//todo news
-	/**
-	 * 
-	    * @Discription 刷新文图消息的方法
-	    * 注:此类的备注中NEWS表示整条的文图消息
-	    * article表示整个文图消息的其中一个文图(最多可以有10个)
-	    * @author lason       
-	    * @created 2016年6月2日 下午5:49:47      
-	    * @param materialCount
-	    * @return     
-	    * @see com.bcdbook.wechat.service.MaterialService#refreshNewsMaterialToLocal(int)
-	 */
+	
 	@Override
 	public String refreshNewsMaterialToLocal(int materialCount) {
-		int pace = 20;//设置获取NEWS的步长
-		//循环获取NEWS
-		for (int i = 0; i < materialCount; i+=pace) {
-			String news = listMaterial("news",i,pace);//根据起点和步长获取一个json格式的NEWS数组
-			JSONObject itemsJson = JSON.parseObject(news);//把获取到的NEWS数组转换成json对象
-			//获取NEWS消息的JSON数组对象
-			JSONArray itemArray = itemsJson.getJSONArray("item");
-
-			JSONObject item = null;//定义一个json格式的NEWS对象,用来处理NEWS
-			Message msg = null;//定义一个message对象,承接查询出的message并配合更新
-			
-			//如果NEWS数组不为空
-			if(itemArray!=null){
-				//循环NEWS的json数组,以处理每一个NEWS对象
-				for (int j = 0; j < itemArray.size(); j++) {
-					
-					item = itemArray.getJSONObject(j);//获取其中一条NEWS对象
-					//如果NEWS对象不为空
-					if(item!=null){
-						
-						//获取其中一个NEWS消息,并获取NEWS中的json格式的article,同时转成JSONArray
-						JSONArray articleArray = item.getJSONObject("content").getJSONArray("news_item");
-						//获取NEWS的第一个article的title,并把这个title作为唯一识别
-						String name = articleArray.getJSONObject(0).getString("title");
-						
-						//根据NEWS中第一条article的title,和message类型,获取一条message对象
-						msg = messageService.getMsgByNameAndType(0,name,"news");
-						
-						if(msg!=null){
-							String mediaId = item.getString("media_id");//获取NEWS的id
-							String itemUpdateTime = item.getString("update_time")+"123";//获取NEWS的更新时间
-							//定义一个集合,用来封装处理article
-							List<JSONObject> msgContents = new ArrayList<JSONObject>();
-							
-							JSONObject sourceArt = null;//定义整个NEWS对象,用来承接articles,同时用于后期的封装
-							
-							//循环获取到article集合
-							for (int k = 0; k < articleArray.size(); k++) {
-								JSONObject msgArt = new JSONObject();//定义一个article,用来封装内容
-								sourceArt = articleArray.getJSONObject(k);//获取微信素材库中的一条article
-								if(sourceArt!=null){
-									msgArt.put("title", sourceArt.getString("title"));
-									msgArt.put("digest", sourceArt.getString("digest"));
-									msgArt.put("url", sourceArt.getString("url"));
-									msgArt.put("thumb_url", sourceArt.getString("thumb_url"));
-								}
-								msgContents.add(msgArt);
-							}
-							msg.setUpdateTime(DateUtil.toTimeString(itemUpdateTime));//设置更新时间到message对象
-							msg.setMediaId(mediaId);//设置素材id到message对象
-							msg.setContent(JSON.toJSONString(msgContents));//设置content到message对象
-							messageService.updateMsg(msg);//更新message
-						}
-					}
-				}
-			}
-		}
-		return BackMsg.SUCCESS.getValue();
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

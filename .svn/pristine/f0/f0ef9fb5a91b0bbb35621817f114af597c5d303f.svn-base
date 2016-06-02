@@ -38,28 +38,31 @@ public class MessageServiceImpl implements MessageService {
 	    * @see com.bcdbook.wechat.service.MessageService#processTextMsg(java.util.Map)
 	 */
 	@Override
-	public Message processTextMsg(Map<String, String> msg) {
+	public String processTextMsg(Map<String, String> msg) {
 		System.out.println("接收到文本消息");
 
-		if(msg!=null){
-			/**
-			 * 用来返回的xml格式的字符串
-			 */
-			String respXML = null;
-			// 获取客户发送过来的文本消息
-			String content = msg.get("Content");
-			//根据文本消息关键字查询出要返回的消息对象
-			Message message = null;
-			if(content!=null){
-				message = messageService.getMsgByKeyword(content);
-			}
-			return message;
+		/**
+		 * 用来返回的xml格式的字符串
+		 */
+		String respXML = null;
+		// 获取客户发送过来的文本消息
+		String content = msg.get("Content");
+		//根据文本消息关键字查询出要返回的消息对象
+		Message message = null;
+		if(content!=null){
+			message = messageService.getMsgByKeyword(content);
 		}
-		return null;
+		if(message!=null){
+			//根据发送过来的消息,和要返回的消息,封装返回的消息的xml格式的字符串
+			respXML = encapsulationService.encapsulationMsg(msg, message);
+		}
+//		System.out.println("processTextMsg");
+//		System.out.println(respXML);
+		return respXML;
 	}
 
 	@Override
-	public Message processImageMsg(Map<String, String> msg) {
+	public String processImageMsg(Map<String, String> msg) {
 		System.out.println("接收到图片消息");
 //		// TODO Auto-generated method stub
 		
@@ -67,69 +70,69 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public Message processVoiceMsg(Map<String, String> msg) {
+	public String processVoiceMsg(Map<String, String> msg) {
 		System.out.println("接收到语音消息");
-		if(msg!=null){
-			String respXML = null;
-			//获取语音识别后的结果
-			String sourceReco = msg.get("Recognition");
-			String recognition = sourceReco.substring(0, sourceReco.length()-1);
-			//根据识别后的关键字查询出要返回的消息对象
-			Message message = null;
-			if(recognition!=null){
-				message = messageService.getMsgByKeyword(recognition);
-			}
-			return message;
+		String respXML = null;
+		//获取语音识别后的结果
+		String sourceReco = msg.get("Recognition");
+		String recognition = sourceReco.substring(0, sourceReco.length()-1);
+		//根据识别后的关键字查询出要返回的消息对象
+		Message message = null;
+		if(recognition!=null){
+			message = messageService.getMsgByKeyword(recognition);
 		}
-		return null;
+		if(message!=null){
+			//根据发送过来的消息,和要返回的消息,封装返回的消息的xml格式的字符串
+			respXML = encapsulationService.encapsulationMsg(msg, message);
+		}
+		return respXML;
 	}
 
 	@Override
-	public Message processVideoMsg(Map<String, String> msg) {
+	public String processVideoMsg(Map<String, String> msg) {
 		System.out.println("接收到视频消息");
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processShortvideoMsg(Map<String, String> msg) {
+	public String processShortvideoMsg(Map<String, String> msg) {
 		System.out.println("接收到短视频消息");
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processLocationMsg(Map<String, String> msg) {
+	public String processLocationMsg(Map<String, String> msg) {
 		System.out.println("接收到地址消息");
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processLinkMsg(Map<String, String> msg) {
+	public String processLinkMsg(Map<String, String> msg) {
 		System.out.println("接收到连接消息");
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processUnknowMsg(Map<String, String> msg) {
-		
+	public String processUnknowMsg(Map<String, String> msg) {
 		System.out.println("接收到无法识别类型的消息");
-		if(msg!=null){
-			String respXML = null;
-			//获取语音识别后的结果
-			String recognition = "unknown";
-			//根据识别后的关键字查询出要返回的消息对象
-			Message message = null;
-			if(recognition!=null){
-				//根据unknown关键字获取对应的消息
-				message = messageService.getMsgByKeyword(recognition);
-			}
-			return message;
+		String respXML = null;
+		//获取语音识别后的结果
+		String recognition = "unknown";
+		//根据识别后的关键字查询出要返回的消息对象
+		Message message = null;
+		if(recognition!=null){
+			//根据unknown关键字获取对应的消息
+			message = messageService.getMsgByKeyword(recognition);
 		}
-		
-		return null;
+		if(message!=null){
+			//根据发送过来的消息,和要返回的消息,封装返回的消息的xml格式的字符串
+			respXML = encapsulationService.encapsulationMsg(msg, message);
+		}
+		return respXML;
 	}
 
 	// ==============从此往下的方法需要立刻实现==============

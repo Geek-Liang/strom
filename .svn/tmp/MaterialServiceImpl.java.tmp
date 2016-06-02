@@ -316,6 +316,7 @@ public class MaterialServiceImpl implements MaterialService {
 	 */
 	@Override
 	public String refreshNewsMaterialToLocal(int materialCount) {
+<<<<<<< .mine
 		int pace = 20;//设置获取NEWS的步长
 		//循环获取NEWS
 		for (int i = 0; i < materialCount; i+=pace) {
@@ -374,5 +375,10 @@ public class MaterialServiceImpl implements MaterialService {
 			}
 		}
 		return BackMsg.SUCCESS.getValue();
+=======
+		
+		// TODO Auto-generated method stub
+		return null;
+>>>>>>> .r104
 	}
 }

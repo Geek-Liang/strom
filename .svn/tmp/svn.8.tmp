@@ -302,7 +302,7 @@ public class MaterialServiceImpl implements MaterialService {
 		}
 		return BackMsg.SUCCESS.getValue();
 	}
-	//todo news
+	
 	/**
 	 * 
 	    * @Discription 刷新文图消息的方法
