@@ -32,6 +32,7 @@ public class WechatSettime {
 	 * @created 2016年5月30日 下午9:26:52
 	 */
 	public void refreshAccessToken() {
+//		System.out.println("刷新accessToken的方法执行");
 		ConnectServiceImpl connectService = (ConnectServiceImpl) getConnectBean("connectService");
 		connectService.updateAccessToken(1);
 	}
@@ -60,6 +61,7 @@ public class WechatSettime {
 	    * @created 2016年6月1日 下午4:33:58
 	 */
 	public void refreshMaterial(){
+//		System.out.println("刷新素材的方法执行");
 		MaterialServiceImpl materialService = (MaterialServiceImpl) getMaterialBean("materialService");
 		materialService.refreshMaterialToLocal();
 	}

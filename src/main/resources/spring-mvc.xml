@@ -70,8 +70,8 @@
 	<!-- 定义处理业务的类 -->
 	<bean id="WechatSettime" class="com.bcdbook.util.settime.WechatSettime" />
 	
-	<bean id="businessObject" class="com.bcdbook.demos.settime.ThisTimeTodo" />
 	<!-- 配置所执行的方法的细节 -->
+	<!-- 微信用来获取accessToken的定时器执行细节 -->
 	<bean id="refreshAccessToken" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<!-- 执行的类(映射) -->
 		<property name="targetObject" ref="WechatSettime" />
@@ -80,7 +80,54 @@
 		<!-- 实例化后是否立即执行 -->
 		<property name="concurrent" value="false" />
 	</bean>
+	<!-- 微信用来刷新素材的定时器执行细节 -->
+	<bean id="refreshMaterial" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 执行的类(映射) -->
+		<property name="targetObject" ref="WechatSettime" />
+		<!-- 执行的方法 -->
+		<property name="targetMethod" value="refreshMaterial" />
+		<!-- 实例化后是否立即执行 -->
+		<property name="concurrent" value="false" />
+	</bean>
 	
+	<!-- 获取accessToken的定时器的执行时间配置 -->
+	<bean id="refreshAccessTokenSettime" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<!-- see the example of method invoking job above -->
+		<!-- 映射执行的方法 -->
+		<property name="jobDetail" ref="refreshAccessToken" />
+		<!-- 10 seconds -->
+		<!-- 首次执行的时候推辞的时间(时间均已毫秒计算) -->
+		<!-- 每隔15分钟执行一次 -->
+		<property name="repeatInterval" value="900000" />
+	</bean>
+	<!-- 刷新素材的定时器的执行时间配置 -->
+	<bean id="refreshMaterialSettime" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<!-- see the example of method invoking job above -->
+		<!-- 映射执行的方法 -->
+		<property name="jobDetail" ref="refreshMaterial" />
+		<!-- 首次执行的时候推辞5分钟时间(时间均已毫秒计算) -->
+		<property name="startDelay" value="300000" />
+		<!-- 每隔两小时执行一次 -->
+		<property name="repeatInterval" value="7200000" />
+	</bean>
+
+	<!-- 总调度用于启动Spring定时器 -->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="refreshAccessTokenSettime" />
+				<ref bean="refreshMaterialSettime" />
+			<!-- 
+				<ref bean="cornTrigger" />
+				<ref bean="simpleTrigger" />
+				 -->
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- ========================用来测试的定时器++++start======================== -->
+	<bean id="businessObject" class="com.bcdbook.demos.settime.ThisTimeTodo" />
 	
 	<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<!-- 执行的类(映射) -->
@@ -98,21 +145,7 @@
 		<!-- 实例化后是否立即执行 -->
 		<property name="concurrent" value="false" />
 	</bean>
-	
-	<!-- 间隔多久执行的配置 -->
-	<bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
-		<!-- see the example of method invoking job above -->
-		<!-- 映射执行的方法 -->
-		<property name="jobDetail" ref="refreshAccessToken" />
-		<!-- 10 seconds -->
-		<!-- 首次执行的时候推辞的时间(时间均已毫秒计算) -->
-		<!-- <property name="startDelay" value="5000" /> -->
-		<!-- 每隔15分钟执行一次 -->
-		<property name="repeatInterval" value="900000" />
-		<!-- <property name="repeatInterval" value="3000" /> -->
-	</bean>
-	
-	
+
 	<!-- 定义到时间点的配置 -->
 	<!-- <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
     	<property name="jobDetail" ref="jobDetail" />
@@ -124,6 +157,7 @@
        <!-- 每个10秒触发 -->
        <property name="cronExpression" value="0 09 11 * * ?"/>
     </bean>
+    <!-- ========================用来测试的定时器++++end======================== -->
     <!-- 
 	    0 0 10,14,16 * * ? 每天上午10点，下午2点，4点 
 		0 0/30 9-17 * * ? 朝九晚五工作时间内每半小时 
@@ -145,20 +179,7 @@
 		"0 15 10 ? * 6L 2002-2005" 2002年至2005年的每月的最后一个星期五上午10:15触发 
 		"0 15 10 ? * 6#3" 每月的第三个星期五上午10:15触发
      -->
-
-	<!-- 总调度用于启动Spring定时器 -->
-	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-		<property name="triggers">
-			<list>
-				<ref bean="simpleTrigger" />
-			<!-- 
-				<ref bean="cornTrigger" />
-				<ref bean="simpleTrigger" />
-				 -->
-			</list>
-		</property>
-	</bean>
-	<!-- 定时器配置结束 -->
+	<!-- *********************************************定时器配置结束*********************************************** -->
 	
     <!-- 拦截器配置 -->
     <!-- 设置过滤掉的静态资源 -->
