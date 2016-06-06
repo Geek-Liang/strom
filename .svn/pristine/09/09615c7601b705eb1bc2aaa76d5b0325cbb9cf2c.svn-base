@@ -1,0 +1,225 @@
+package com.bcdbook.wechat.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.bcdbook.wechat.service.ConnectService;
+import com.bcdbook.wechat.service.MaterialService;
+import com.bcdbook.wechat.service.impl.CoreServiceImpl;
+
+@Controller
+@RequestMapping("/wechat")
+public class WechatController {
+	@Resource
+	private ConnectService connectService;
+	@Resource
+	private CoreServiceImpl coreService;
+	@Resource
+	private MaterialService materialService;
+	
+	private Logger log = Logger.getLogger(WechatController.class);  
+	
+	
+	  
+    /** 
+     * 校验信息是否是从微信服务器发过来的。 
+     *  
+     * @param weChat 
+     * @param out 
+     */  
+//    @RequestMapping(method = {RequestMethod.GET}, produces = "application/json;charset=UTF-8")  
+    @RequestMapping(method = {RequestMethod.GET})  
+    public void get(HttpServletRequest request,HttpServletResponse response) {
+    	PrintWriter out = null;
+    	try {
+			out = response.getWriter();
+			if(connectService.safeuuid(request)){
+				out.print(request.getParameter("echostr"));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			out.flush();  
+			out.close();  
+		}
+        
+    }  
+    
+    /** 
+     * 微信消息的处理 
+     *  
+     * @param request 
+     * @param out 
+     * @throws IOException 
+     */  
+//    @RequestMapping(method = { RequestMethod.POST }, produces = "application/xml;charset=UTF-8")  
+    @RequestMapping(method = RequestMethod.POST)
+    public void post(HttpServletRequest request, HttpServletResponse response) {
+        /* 消息的接收、处理、响应 */  
+  
+        // 将请求、响应的编码均设置为UTF-8（防止中文乱码）  
+        try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}  
+        response.setCharacterEncoding("UTF-8");  
+  
+        // 调用核心业务类接收消息、处理消息,
+        //并返回要发送给客户的信息
+        String respMessage = coreService.processRequest(request);
+//        log.info(respMessage);
+        // 响应消息  
+        PrintWriter out = null;
+		try {
+			System.out.println("Controller将要输出的xml值");
+			System.out.println(respMessage);
+			out = response.getWriter();
+			out.print(respMessage);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			out.close();
+			out = null;
+		}
+    } 
+    
+    @RequestMapping(value="/login", method = {RequestMethod.GET}) 
+	public String getLoginPage(HttpServletRequest request, HttpServletResponse response,Model model){
+//    	System.out.println("进入登录页面");
+    	String code = request.getParameter("code");
+    	String state = request.getParameter("state");
+    	
+    	System.out.println(code);
+    	System.out.println(state);
+    	//接收通过code交换得到的一些信息
+    	String endorData = null;
+    	//用来解析交换后信息的json对象
+    	JSONObject endorDataJone = null;
+    	if(code!=null){
+//    		"041EaVQ020c7B41D0YR02x1WQ02EaVQZ"
+    		endorData = connectService.exchangeAccessToken(code);
+    		endorDataJone = JSON.parseObject(endorData);
+    		
+    		String aT = endorDataJone.getString("access_token");
+    		if(endorData!=null&&aT!=null){
+    			//获取交换得来的accessToken
+    			String accessToken = endorDataJone.getString("access_token");
+    			//如果不为空,说明调用成功了
+    			if(accessToken!=null){
+    				String openId = endorDataJone.getString("openid");
+    				String userInfo = connectService.getWechatUserInfo(accessToken, openId);
+    				if(userInfo!=null){
+    					JSONObject userJson = JSON.parseObject(userInfo);
+    					String infoOpenId = userJson.getString("openid");
+    					if(infoOpenId!=null){
+    						System.out.println(code);
+    						System.out.println(state);
+    						System.out.println(infoOpenId);
+    						System.out.println(userJson.getString("nickname"));
+    						System.out.println(userJson.getString("sex"));
+    						System.out.println(userJson.getString("sex"));
+    						System.out.println(userJson.getString("city"));
+    						System.out.println(userJson.getString("country"));
+    						System.out.println(userJson.getString("headimgurl"));
+    						model.addAttribute("code", code);
+    						model.addAttribute("state", state);
+    						model.addAttribute("openid", infoOpenId);
+    						model.addAttribute("nickname", userJson.getString("nickname"));
+    						model.addAttribute("sex", userJson.getString("sex"));
+    						model.addAttribute("city", userJson.getString("city"));
+    						model.addAttribute("country", userJson.getString("country"));
+    						model.addAttribute("headimgurl", userJson.getString("headimgurl"));
+    					}
+    				}
+    			}
+    		}
+    	}
+		return "wechat/login";
+	}
+    
+    @RequestMapping("/createMenu")
+    @ResponseBody
+	public String getUser(HttpServletRequest request){
+    	connectService.createMenu();
+		return "user/getUser";
+	}
+    
+    @RequestMapping("/getCode")
+    public String getCode(HttpServletRequest request, HttpServletResponse response){
+    	System.out.println("进入getCode");
+    	String getCodeUrl = connectService.getCode();
+    	try {
+    		System.out.println("将要执行转发");
+			response.sendRedirect(getCodeUrl);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    	return null;
+    }
+    
+    @RequestMapping("/refreshMaterial")
+    @ResponseBody
+    public String refreshMaterialToLocal(HttpServletRequest request, HttpServletResponse response){
+    	materialService.refreshMaterialToLocal();
+    	return "refreshMaterial success";
+    }
+    
+    //TODO 获取添加页面的方法(get请求)
+    @RequestMapping(value="/addMsg", method = {RequestMethod.GET})
+    public String toAddMsg(HttpServletRequest request, HttpServletResponse response){
+    	return "wechat/addMsg";
+    }
+    //TODO 执行消息添加的方法(post请求)
+    @RequestMapping(value="/addMsg", method = {RequestMethod.POST})
+    public String addMsg(HttpServletRequest request, HttpServletResponse response){
+    	
+    	return "wechat/addMsg";
+    }
+    
+    
+    @RequestMapping("/getTest")
+    public String getTest(HttpServletRequest request, HttpServletResponse response){
+    	return "wechat/test";
+    }
+    
+    @RequestMapping("/toTest")
+	public String toTest(){
+    	
+    	connectService.addAccessToken();
+		return "test/testSuccess";
+	}
+    
+    @RequestMapping("/html")
+	public void getHtml(HttpServletRequest request,HttpServletResponse response,Model model){
+		try {
+//			request.getRequestDispatcher("/WEB-INF/views/test/testhtml.html").forward(request, response);
+			
+			request.getRequestDispatcher("/static/wechat/login.html").forward(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
+

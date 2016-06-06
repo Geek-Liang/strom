@@ -1,0 +1,75 @@
+package com.bcdbook.user.service.impl;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.bcdbook.user.dao.UserDao;
+import com.bcdbook.user.pojo.User;
+import com.bcdbook.user.service.UserService;
+
+@Service("userService")
+public class UserServiceImpl implements UserService {
+	@Resource
+	private UserDao userDao;
+
+	@Override
+	public User getUserById(int userId) {
+		return this.userDao.selectById(userId);
+	}
+	
+	@Transactional
+	@Override
+	public void addUsers(List<User> users) {
+		for (int i = 0; i < users.size(); i++) {
+			userDao.insert(users.get(i));
+//			if(i>2){
+//				throw new RuntimeException();
+//			}else{
+//				userDao.insert(users.get(i));
+//			}
+		}
+	}
+	
+	@Override
+	public boolean addUser(User user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
+	public boolean updateUser(User user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean deleteUser(User user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	/**
+	 * 
+	    * @Discription TODO
+	    * @author lason       
+	    * @created 2016年6月5日 下午4:36:47      
+	    * @param username
+	    * @param pwd
+	    * @param openId
+	    * @return     
+	    * @see com.bcdbook.user.service.UserService#bindingWechat(java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
+	public boolean bindingWechat(String username, String pwd, String openId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean bindingEmail(String username, String pwd, String email) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

@@ -40,9 +40,9 @@
                 "name": "测试",
                 "sub_button": [
                     {
-                        "name": "点击授权",
+                        "name": "个人中心",
                         "type": "click",
-                        "key": "getcode"
+                        "key": "myhome"
                     },
                     {
                         "name": "连接",

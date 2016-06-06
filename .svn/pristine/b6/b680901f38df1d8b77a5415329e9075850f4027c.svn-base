@@ -1,0 +1,93 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<base href="<%=basePath%>">
+
+<title>登录</title>
+
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="This is my page">
+<meta name="viewport" content="initial-scale=1, user-scalable=0, minimal-ui">
+
+<link rel='shortcut icon' , href='${ctx}/public/imgs/logo32.png' >
+
+<link rel="stylesheet" type="text/css" href="${ctx}/public/lib/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/public/lib/css/buttons.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/public/lib/iconfont/iconfont.css">
+
+<link rel="stylesheet/less" type="text/css" href="${ctx}/public/css/main.less">
+
+<link rel="stylesheet/less" type="text/css" href="${ctx}/public/css/wechat/login.less">
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-1 col-xs-offset-5"></div>
+			<div class="container col-xs-5 logo-cont">
+				<i class="icon icon-logo logo"></i>
+			</div>
+		</div>
+
+		<form class="form">
+			<div class="form-group form-group-lg">
+				<div class="container col-xs-12 input-group">
+					<i class="icon icon-user login-icon input-group-addon"></i> <input
+						type="email" class="form-control" id="" placeholder="用户名">
+				</div>
+			</div>
+			<div class="form-group form-group-lg">
+				<div class="container col-xs-12 input-group">
+					<i class="icon icon-key login-icon input-group-addon"></i> <input
+						type="password" class="form-control" id="" placeholder="密码">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-1 col-xs-offset-5"></div>
+				<div class="col-xs-5 button-cont">
+					<button href="javascript:void(0)"
+						class="button button-border-thin button-primary login-button">登录</button>
+				</div>
+			</div>
+		</form>
+		<!-- System.out.println("code:"+code);
+    	System.out.println("state:"+state); -->
+    	<!-- model.addAttribute("code", code);
+		model.addAttribute("state", state);
+		model.addAttribute("openid", infoOpenId);
+		model.addAttribute("nickname", userJson.getString("nickname"));
+		model.addAttribute("sex", userJson.getString("sex"));
+		model.addAttribute("city", userJson.getString("city"));
+		model.addAttribute("country", userJson.getString("country"));
+		model.addAttribute("headimgurl", userJson.getString("headimgurl")); -->
+		<div class="row">code:"${code}"</div>
+		<div class="row">state:"${state}"</div>
+		<div class="row">openid:"${openid}"</div>
+		<div class="row">nickname:"${nickname}"</div>
+		<div class="row">sex:"${sex}"</div>
+		<div class="row">city:"${city}"</div>
+		<div class="row">country:"${country}"</div>
+		<div class="row">headimgurl:"${headimgurl}"</div>
+	</div>
+
+	<script type="text/javascript">var ctx = "${ctx}";</script>
+	<script type="text/javascript" src="${ctx}/public/lib/js/jquery.min.js"></script>
+	<script type="text/javascript" src="${ctx}/public/lib/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="${ctx}/public/lib/js/less.min.js"></script>
+</body>
+
+</html>

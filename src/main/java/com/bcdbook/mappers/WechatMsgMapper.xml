@@ -92,12 +92,19 @@
 		#{id,jdbcType=INTEGER}
 	</update>
 	
-<!-- 以下方法暂时没有使用 
+	<!-- 查询Message列表的sql映射 -->
+	<select id="selectAllMsg" resultMap="BaseResultMap" >
+		select
+		<include refid="Base_Column_List" />
+		from t_wx_msg		
+	</select>
+	
+
 	<delete id="deleteById" parameterType="java.lang.Integer">
-		delete from t_wechat
+		delete from t_wx_msg
 		where id
 		= #{id,jdbcType=INTEGER}
 	</delete>
 	
-	-->
+	
 </mapper>
