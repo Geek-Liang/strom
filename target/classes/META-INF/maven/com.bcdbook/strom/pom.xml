@@ -1,13 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.bcdbook</groupId>
-  <artifactId>strom</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>strom Strom Webapp</name>
-  <url>http://maven.apache.org</url>
-  
-  
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.bcdbook</groupId>
+	<artifactId>strom</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>strom Strom Webapp</name>
+	<url>http://maven.apache.org</url>
+
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- spring版本号 -->
@@ -22,9 +22,9 @@
 	<dependencies>
 		<!-- jade引擎 -->
 		<dependency>
-		  <groupId>de.neuland-bfi</groupId>
-		  <artifactId>jade4j</artifactId>
-		  <version>1.2.1</version>
+			<groupId>de.neuland-bfi</groupId>
+			<artifactId>jade4j</artifactId>
+			<version>1.2.1</version>
 		</dependency>
 		<!-- 单元测试包 -->
 		<dependency>
@@ -121,18 +121,18 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
+
 		<!-- 定时器 -->
 		<dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz</artifactId>
-            <version>2.2.1</version>
-        </dependency>
-        <dependency>
-	      <groupId>org.quartz-scheduler</groupId>
-	      <artifactId>quartz-jobs</artifactId>
-	      <version>2.2.1</version>
-	  </dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz-jobs</artifactId>
+			<version>2.2.1</version>
+		</dependency>
 		<!-- 日志文件管理包 -->
 		<!-- log start -->
 		<dependency>
@@ -140,8 +140,8 @@
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
-		
-		
+
+
 		<!-- 格式化对象，方便输出日志 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
@@ -164,40 +164,33 @@
 		<!-- log end -->
 		<!-- 映入JSON -->
 		<dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>2.5.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.5.1</version>
-        </dependency>
-        <!-- 用于xml解析的jar包 -->
-        <dependency>
-		    <groupId>dom4j</groupId>
-		    <artifactId>dom4j</artifactId>
-		    <version>1.6.1</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.5.1</version>
 		</dependency>
-	<!-- xml封装和解析的扩展包,用于实体类和xml格式的字符串互相转换的处理 -->
 		<dependency>
-		    <groupId>com.thoughtworks.xstream</groupId>
-		    <artifactId>xstream</artifactId>
-		    <version>1.4.7</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.5.1</version>
 		</dependency>
-		<!-- <dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>2.5.0</version>
-		</dependency> -->
-		<!--json-处理的相关jar包-->
+		<!-- 用于xml解析的jar包 -->
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<!-- xml封装和解析的扩展包,用于实体类和xml格式的字符串互相转换的处理 -->
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<!-- <dependency> <groupId>org.codehaus.jackson</groupId> <artifactId>jackson-mapper-asl</artifactId> 
+			<version>2.5.0</version> </dependency> -->
+		<!--json-处理的相关jar包 -->
 		<!-- 使用alibaba的jar包fastjson已经可以实现相应功能 -->
-		<!-- <dependency>    
-		    <groupId>net.sf.json-lib</groupId>    
-		    <artifactId>json-lib</artifactId>    
-		    <version>2.4</version>    
-		    <classifier>jdk15</classifier>    
-		</dependency>  -->
+		<!-- <dependency> <groupId>net.sf.json-lib</groupId> <artifactId>json-lib</artifactId> 
+			<version>2.4</version> <classifier>jdk15</classifier> </dependency> -->
 		<!-- 上传组件包 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -214,13 +207,17 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.9</version>
 		</dependency>
-		
-		
+
+		<!-- 引入java发送邮件的jar包 -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+
 	</dependencies>
-	<!-- <build>
-		<finalName>org.zsl.hnust</finalName>
-	</build> -->
-  <build>
-    <finalName>strom</finalName>
-  </build>
+	<!-- <build> <finalName>org.zsl.hnust</finalName> </build> -->
+	<build>
+		<finalName>strom</finalName>
+	</build>
 </project>
