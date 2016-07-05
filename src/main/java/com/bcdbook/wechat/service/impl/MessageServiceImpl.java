@@ -397,7 +397,6 @@ public class MessageServiceImpl implements MessageService {
 		// TODO Auto-generated method stub
 		int begin=(page-1)*size;
 		
-		
 		return wechatMsgDao.getMsgPageByCondition(begin, size, typeString, keyword);
 		//return null;
 	}

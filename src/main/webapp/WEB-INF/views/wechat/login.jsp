@@ -20,7 +20,7 @@
 <meta http-equiv="description" content="This is my page">
 <meta name="viewport" content="initial-scale=1, user-scalable=0, minimal-ui">
 
-<link rel='shortcut icon' , href='${ctx}/public/imgs/logo32.png' >
+<link rel='shortcut icon' href='${ctx}/public/imgs/logo32.png' >
 
 <link rel="stylesheet" type="text/css" href="${ctx}/public/lib/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${ctx}/public/lib/css/buttons.css">

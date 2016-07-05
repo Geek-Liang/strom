@@ -86,12 +86,14 @@ public class WechatController {
 		// 调用核心业务类接收消息、处理消息,
 		// 并返回要发送给客户的信息
 		String respMessage = coreService.processRequest(request);
+//		String respMessage2 = coreService.processRequest(request);
 		// log.info(respMessage);
 		// 响应消息
 		PrintWriter out = null;
 		try {
 			//获取流并输出要返回的信息
 			out = response.getWriter();
+			out.print(respMessage);
 			out.print(respMessage);
 		} catch (IOException e) {
 			e.printStackTrace();
